@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+    <string name="map_key" translatable="false">AIzaSyA73tq2d391LcVnRYSJ2Nql2XI121aZ2Gs</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

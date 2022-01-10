@@ -179,9 +179,9 @@
             android:elevation="1dp"
             android:shadowColor="@color/black"
             android:text="Sign up"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:cornerRadius="50dp"
-            app:strokeColor="@color/black"
+            app:strokeColor="@color/white"
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="543dp" />
 

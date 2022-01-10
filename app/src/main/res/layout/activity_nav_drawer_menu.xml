@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/teal_100">
+                android:background="@drawable/run">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -38,8 +38,9 @@
                     android:layout_gravity="center"
                     android:text="Running"
                     android:textSize="30sp"
+                    android:textStyle="italic"
                     android:layout_margin="66dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -57,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/yellow_100">
+                android:background="@drawable/walk">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -65,8 +66,9 @@
                     android:layout_gravity="center"
                     android:text="Walking"
                     android:textSize="30sp"
+                    android:textStyle="italic"
                     android:layout_margin="66dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -84,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/red_100">
+                android:background="@drawable/cycle">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -92,8 +94,9 @@
                     android:layout_gravity="center"
                     android:text="Cycling"
                     android:textSize="30sp"
+                    android:textStyle="italic"
                     android:layout_margin="66dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
