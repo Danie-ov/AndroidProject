@@ -19,25 +19,25 @@
             layout="@layout/main_toolbar"/>
 
         <FrameLayout
-            android:id="@+id/dataFrame"
+            android:id="@+id/mapFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="650dp"
             android:layout_weight="1"
-            android:background="@color/teal_100">
+            android:background="@color/gray_100">
 
         </FrameLayout>
 
         <View
             android:id="@+id/view"
             android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+            android:layout_height="5dp" />
 
         <FrameLayout
-            android:id="@+id/mapFrame"
+            android:id="@+id/dataFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/gray_100">
+            android:background="@color/amber_100">
 
         </FrameLayout>
 

@@ -28,7 +28,11 @@ public class WorkoutEndurance extends AppCompatActivity {
                 .replace(R.id.mapFrame, mapFragment)
                 .commit();
 
-        dataFragment = new Fragment();
+        dataFragment = new EnduranceDataFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.dataFrame, dataFragment)
+                .commit();
     }
 
     public void ClickMenu(View view){

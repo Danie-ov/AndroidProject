@@ -1,6 +1,7 @@
 package com.example.androidproject;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -32,6 +34,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 public class MapFragment extends Fragment {
@@ -47,6 +51,7 @@ public class MapFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -96,7 +101,7 @@ public class MapFragment extends Fragment {
 
         }else{
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         return retLat;
     }

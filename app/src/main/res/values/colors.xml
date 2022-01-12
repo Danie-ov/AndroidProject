@@ -12,4 +12,7 @@
     <color name="yellow_100">#F0F4C3</color>
     <color name="red_100">#FFCDD2</color>
     <color name="gray_100">#BDBDBD</color>
+    <color name="amber_100">#FFF8E1</color>
+    <color name="blue_300">#64B5F6</color>
+    <color name="green_200">#69F0AE</color>
 </resources>
