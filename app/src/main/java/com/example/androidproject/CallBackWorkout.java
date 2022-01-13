@@ -1,5 +1,5 @@
 package com.example.androidproject;
 
 public interface CallBackWorkout {
-    void zoomToMarker(double latitude, double longitude);
+    void setMapLocation(double lat, double lan);
 }

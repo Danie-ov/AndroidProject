@@ -72,6 +72,6 @@
         android:backgroundTint="@color/green_200"
         android:shadowColor="@color/white"
         android:elevation="1dp"
-        android:text="START"/>
+        android:text="Start"/>
 
 </LinearLayout>

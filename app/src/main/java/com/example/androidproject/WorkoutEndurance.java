@@ -33,6 +33,13 @@ public class WorkoutEndurance extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.dataFrame, dataFragment)
                 .commit();
+
+        /*CallBackWorkout callBackWorkout = new CallBackWorkout() {
+            @Override
+            public void setMapLocation() {
+                mapFragment.getLocation();
+            }
+        };*/
     }
 
     public void ClickMenu(View view){
