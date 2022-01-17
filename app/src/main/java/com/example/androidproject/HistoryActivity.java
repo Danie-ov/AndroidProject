@@ -11,7 +11,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     DrawerLayout historyDrawerLayout;
 
-    RecyclerView list_RV_records;
+    RecyclerView list_RV_workouts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         historyDrawerLayout = findViewById(R.id.nav_drawer_layout_menu);
 
-        list_RV_records = findViewById(R.id.list_RV_records);
+        list_RV_workouts = findViewById(R.id.list_RV_workouts);
     }
 
     public void ClickMenu(View view){

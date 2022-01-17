@@ -1,20 +1,20 @@
 package com.example.androidproject;
 
-public class Record {
+public class Workout {
     private String type = " ";
     private double duration = 0.0;
     private double distance = 0.0;
     private double average  = 0.0;
-    private long date       = 0;
+    private int date       = 0;
     private double startLat = 0.0;
     private double endLat   = 0.0;
     private double startLon = 0.0;
     private double endLon   = 0.0;
 
-    public Record(){
+    public Workout(){
     }
 
-    public Record(String type, double duration, double distance, double average, long date, double startLat
+    public Workout(String type, double duration, double distance, double average, int date, double startLat
             , double endLat, double startLon, double endLon){
         this.type = type;
         this.duration = duration;
@@ -59,11 +59,11 @@ public class Record {
         this.type = type;
     }
 
-    public long getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(int date) {
         this.date = date;
     }
 

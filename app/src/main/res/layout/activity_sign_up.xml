@@ -7,23 +7,25 @@
     tools:context=".SignUpActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_register_activity"
+        android:id="@+id/toolbar_signup_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title"
+            android:id="@+id/title_TXV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingStart="-25dp"
-            android:paddingEnd="25dp"
+            android:paddingEnd="5dp"
             android:text="Create an account"
             android:textColor="@color/teal_200"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -32,7 +34,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_register_activity">
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_signup_activity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -60,6 +63,8 @@
                     android:padding="16dp"
                     android:textColor="#222934"
                     android:textSize="16sp" />
+
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -158,11 +163,40 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_terms_and_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirm_password_TXF">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/Signup_BTN"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="30dp"
+                    app:cornerRadius="50dp"
+                    android:textColor="@color/white"
+                    app:strokeColor="@color/white"
+                    android:shadowColor="@color/black"
+                    android:elevation="1dp"
+                    android:text="Sign up"/>
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -175,7 +209,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="151dp"
-            android:layout_marginBottom="96dp"
+            android:layout_marginBottom="116dp"
             android:elevation="1dp"
             android:shadowColor="@color/black"
             android:text="Sign up"
@@ -185,8 +219,6 @@
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="543dp" />
 
-    </RelativeLayout>
-
-
+    </RelativeLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
