@@ -184,8 +184,8 @@
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="30dp"
                     app:cornerRadius="50dp"
-                    android:textColor="@color/white"
-                    app:strokeColor="@color/white"
+                    android:textColor="@color/purple_200"
+                    app:strokeColor="@color/purple_200"
                     android:shadowColor="@color/black"
                     android:elevation="1dp"
                     android:text="Sign up"/>
@@ -195,30 +195,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Signup_BTN"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="151dp"
-            android:layout_marginBottom="116dp"
-            android:elevation="1dp"
-            android:shadowColor="@color/black"
-            android:text="Sign up"
-            android:textColor="@color/white"
-            app:cornerRadius="50dp"
-            app:strokeColor="@color/white"
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="543dp" />
-
-    </RelativeLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

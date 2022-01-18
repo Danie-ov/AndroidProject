@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,26 +49,20 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                db.collection("User")
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if(task.isSuccessful()){
-                                                    for(QueryDocumentSnapshot document : task.getResult()){
-                                                        String emailDB = document.get("Email").toString();
-                                                        if(email.equals(emailDB)) {
-                                                            Toast.makeText(LoginActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-                                                            moveToMenuPage();
-                                                        }else{
-                                                            Toast.makeText(LoginActivity.this, "You need to Register..", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                }else{
-                                                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
+                                if(task.isSuccessful()){
+                                    for(QueryDocumentSnapshot document : task.getResult()){
+                                        String emailDB = document.get("Email").toString();
+                                        if(emailDB.equals(email)) {
+                                            Toast.makeText(LoginActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                                            Log.d("email: " + emailDB, "inside if");
+                                            moveToMenuPage();
+                                            return;
+                                        }
+                                    }
+                                    Toast.makeText(LoginActivity.this, "You need to Sign up..", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
             }

@@ -89,8 +89,8 @@
         android:layout_marginBottom="24dp"
         android:layout_marginTop="30dp"
         app:cornerRadius="50dp"
-        android:textColor="@color/white"
-        app:strokeColor="@color/white"
+        android:textColor="@color/purple_200"
+        app:strokeColor="@color/purple_200"
         android:shadowColor="@color/black"
         android:elevation="1dp"
         android:text="Log in"/>
