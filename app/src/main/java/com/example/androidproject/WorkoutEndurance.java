@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,8 +13,8 @@ public class WorkoutEndurance extends AppCompatActivity {
 
     DrawerLayout Workout_FR_DrawerLayout;
 
-    Fragment mapFragment;
-    Fragment dataFragment;
+    MapFragment mapFragment;
+    EnduranceDataFragment dataFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +30,27 @@ public class WorkoutEndurance extends AppCompatActivity {
                 .commit();
 
         dataFragment = new EnduranceDataFragment();
+        dataFragment.setCallbackWorkout(callBackWorkout);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.dataFrame, dataFragment)
                 .commit();
-
-        /*CallBackWorkout callBackWorkout = new CallBackWorkout() {
-            @Override
-            public void setMapLocation() {
-                mapFragment.getLocation();
-            }
-        };*/
     }
+
+    CallBackWorkout callBackWorkout = new CallBackWorkout() {
+
+        @Override
+        public Location getMapCurrentLocation() {
+            Location location = mapFragment.getCurrentLocation();
+            return location;
+        }
+
+        @Override
+        public float getDistancePoints(Location location) {
+            float dis = mapFragment.checkDistance(location);
+            return dis;
+        }
+    };
 
     public void ClickMenu(View view){
 

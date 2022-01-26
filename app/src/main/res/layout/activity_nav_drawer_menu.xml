@@ -33,6 +33,7 @@
                 android:background="@drawable/run">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/TV_typeNameRun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -61,6 +62,7 @@
                 android:background="@drawable/walk">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/TV_typeNameWalk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -89,6 +91,7 @@
                 android:background="@drawable/cycle">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/TV_typeNameCycle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

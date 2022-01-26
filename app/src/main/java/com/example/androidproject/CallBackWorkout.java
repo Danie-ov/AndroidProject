@@ -1,5 +1,8 @@
 package com.example.androidproject;
 
+import android.location.Location;
+
 public interface CallBackWorkout {
-    void setMapLocation(double lat, double lan);
+    Location getMapCurrentLocation();
+    float getDistancePoints(Location location);
 }

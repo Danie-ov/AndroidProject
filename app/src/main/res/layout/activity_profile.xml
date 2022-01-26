@@ -24,19 +24,10 @@
 
             <ImageView
                 android:id="@+id/image_user_IMV"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:src="@drawable/daniel"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/user_name_TXV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Daniel Niazov"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_marginTop="8dp"
-                android:textStyle="bold" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person"/>
 
             <View
                 android:layout_width="match_parent"
@@ -52,7 +43,7 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:gravity="center_vertical">
 
             <ImageView

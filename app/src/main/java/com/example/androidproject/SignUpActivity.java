@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,29 +52,54 @@ public class SignUpActivity extends AppCompatActivity {
                 String lastName = last_name_EDT.getText().toString();
                 String email = email_EDT.getText().toString();
                 String password = password_EDT.getText().toString();
-
-                Map<String, Object> user = new HashMap<>();
-                user.put("First name", firstName);
-                user.put("Last name", lastName);
-                user.put("Email", email);
-                user.put("Password", password);
+                String confirmPassword = confirm_password_EDT.getText().toString();
 
                 db.collection("User")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onSuccess(@NonNull DocumentReference documentReference) {
-                                Toast.makeText(SignUpActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for(QueryDocumentSnapshot document : task.getResult()){
+                                        String emailDB = document.get("Email").toString();
+                                        if(emailDB.equals(email) || email_EDT.getText().toString().isEmpty()) {
+                                            Toast.makeText(SignUpActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
+                                            email_EDT.setText("");
+                                            password_EDT.setText("");
+                                            confirm_password_EDT.setText("");
+                                        }else{
+                                            addUserToDataBase(firstName, lastName, email, password);
+                                            return;
+                                        }
+                                    }
+                                }
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignUpActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                moveToLoginPage();
+                        });
             }
         });
+    }
+
+    private void addUserToDataBase(String firstName, String lastName, String email, String password) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("First name", firstName);
+        user.put("Last name", lastName);
+        user.put("Email", email);
+        user.put("Password", password);
+
+        db.collection("User")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(@NonNull DocumentReference documentReference) {
+                        Toast.makeText(SignUpActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignUpActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        moveToLoginPage();
     }
 
     private void findViews() {
@@ -78,7 +108,12 @@ public class SignUpActivity extends AppCompatActivity {
         last_name_EDT = findViewById(R.id.last_name_EDT);
         email_EDT = findViewById(R.id.email_EDT);
         password_EDT = findViewById(R.id.password_EDT);
+        password_EDT.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        password_EDT.setTransformationMethod(PasswordTransformationMethod.getInstance());
         confirm_password_EDT = findViewById(R.id.confirm_password_EDT);
+        confirm_password_EDT.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        confirm_password_EDT.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
     }
 
     private void moveToLoginPage(){
@@ -86,4 +121,5 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 }

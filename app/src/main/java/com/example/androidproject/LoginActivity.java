@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +32,23 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText email_EDT;
     private TextInputEditText password_EDT;
 
+    private static String firstName;
+    private static String lastName;
+    private static String email;
+    private static String password;
+
+    public static String getFirstName() {
+        return firstName;
+    }
+
+    public static String getLastName() {
+        return lastName;
+    }
+
+    public static String getEmail() {
+        return email;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         Login_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = email_EDT.getText().toString();
-                String password = password_EDT.getText().toString();
+                String emailDB = email_EDT.getText().toString();
+                String passwordDB = password_EDT.getText().toString();
 
                 db.collection("User")
                         .get()
@@ -51,15 +70,18 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
                                     for(QueryDocumentSnapshot document : task.getResult()){
-                                        String emailDB = document.get("Email").toString();
-                                        if(emailDB.equals(email)) {
+                                        email = document.get("Email").toString();
+                                        firstName = document.get("First name").toString();
+                                        lastName = document.get("Last name").toString();
+                                        password = document.get("Password").toString();
+                                        if(emailDB.equals(email) && passwordDB.equals(password)) {
                                             Toast.makeText(LoginActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-                                            Log.d("email: " + emailDB, "inside if");
                                             moveToMenuPage();
                                             return;
                                         }
                                     }
-                                    Toast.makeText(LoginActivity.this, "You need to Sign up..", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Wrong details, or not registered yet..", Toast.LENGTH_SHORT).show();
+                                    password_EDT.setText("");
                                 }else{
                                     Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                                 }
@@ -84,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         Sign_up_TXF = findViewById(R.id.Sign_up_TXF);
         email_EDT = findViewById(R.id.email_EDT);
         password_EDT = findViewById(R.id.password_EDT);
+        password_EDT.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        password_EDT.setTransformationMethod(PasswordTransformationMethod.getInstance());
     }
 
     private void moveToSignupPage(){
@@ -97,4 +121,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 }

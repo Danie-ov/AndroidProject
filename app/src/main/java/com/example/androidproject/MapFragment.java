@@ -1,36 +1,24 @@
 package com.example.androidproject;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,10 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
@@ -52,6 +37,7 @@ public class MapFragment extends Fragment {
 
     FusedLocationProviderClient client;
     SupportMapFragment supportMapFragment;
+    Location location;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +47,7 @@ public class MapFragment extends Fragment {
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getLocation();
+            getCurrentLocation();
         } else {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
@@ -70,16 +56,16 @@ public class MapFragment extends Fragment {
         return view;
     }
 
-    private void getLocation() {
+    public Location getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            return null;
         }
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                Location location = task.getResult();
+                location = task.getResult();
                 if (location != null) {
                     try {
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
@@ -93,7 +79,7 @@ public class MapFragment extends Fragment {
                                 markerOptions.position(latLng);
                                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                                 googleMap.clear();
-                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                                 googleMap.addMarker(markerOptions);
                             }
                         });
@@ -104,9 +90,10 @@ public class MapFragment extends Fragment {
                 }
             }
         });
+        return location;
     }
 
-    private void displayTrack(double lat, double lon){
+    public void displayTrack(double lat, double lon){
         try {
             Uri uri = Uri.parse("https://www.google.co.in/maps/dir/" + lat + "/" + lon);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -119,6 +106,12 @@ public class MapFragment extends Fragment {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    public float checkDistance(Location startLocation){
+
+        float dis = startLocation.distanceTo(getCurrentLocation());
+        return dis;
     }
 
 }

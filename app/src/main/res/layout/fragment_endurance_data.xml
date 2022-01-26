@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/TV_timer"
@@ -37,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="70dp"
             android:layout_marginBottom="10dp"
-            android:drawableTop="@drawable/ic_distance"
-            android:text="0:00"
+            android:drawableTop="@drawable/ic_average"
+            android:text="0.0"
             android:textColor="@color/black"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -51,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginBottom="10dp"
-            android:layout_marginStart="120dp"
-            android:drawableTop="@drawable/ic_average"
-            android:text="0:00"
+            android:layout_marginStart="130dp"
+            android:drawableTop="@drawable/ic_distance"
+            android:text="0.0"
             android:textColor="@color/black"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -65,7 +66,7 @@
         android:layout_width="140dp"
         android:layout_height="70dp"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="135dp"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         app:cornerRadius="50dp"
         android:textColor="@color/black"

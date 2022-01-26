@@ -10,13 +10,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.textview.MaterialTextView;
+
 public class NavDrawerMenu extends AppCompatActivity {
 
     DrawerLayout nav_drawer_layout_menu;
 
-    CardView menu_CV_running;
-    CardView menu_CV_walking;
-    CardView menu_CV_cycling;
+    private CardView menu_CV_running;
+    private CardView menu_CV_walking;
+    private CardView menu_CV_cycling;
+
+    private MaterialTextView TV_typeNameCycle;
+    private MaterialTextView TV_typeNameWalk;
+    private MaterialTextView TV_typeNameRun;
+
+    private static String type;
+    public static String getWorkoutType() {
+        return type;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +44,17 @@ public class NavDrawerMenu extends AppCompatActivity {
         menu_CV_running = findViewById(R.id.menu_CV_running);
         menu_CV_walking = findViewById(R.id.menu_CV_walking);
         menu_CV_cycling = findViewById(R.id.menu_CV_cycling);
+
+        TV_typeNameCycle = findViewById(R.id.TV_typeNameCycle);
+        TV_typeNameWalk = findViewById(R.id.TV_typeNameWalk);
+        TV_typeNameRun = findViewById(R.id.TV_typeNameRun);
     }
 
     private void initButtons() {
         menu_CV_running.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                type = TV_typeNameRun.getText().toString();
                 moveToWorkout();
             }
         });
@@ -46,6 +62,7 @@ public class NavDrawerMenu extends AppCompatActivity {
         menu_CV_walking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                type = TV_typeNameWalk.getText().toString();
                 moveToWorkout();
             }
         });
@@ -53,6 +70,7 @@ public class NavDrawerMenu extends AppCompatActivity {
         menu_CV_cycling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                type = TV_typeNameCycle.getText().toString();
                 moveToWorkout();
             }
         });
