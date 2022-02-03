@@ -16,6 +16,8 @@ public class ChartsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_charts);
 
         chartsDrawerLayout = findViewById(R.id.nav_drawer_layout_menu);
+
+
     }
 
     public void ClickMenu(View view){

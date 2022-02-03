@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
     android:id="@+id/nav_drawer_layout_menu"
-    tools:context=".ChartsActivity">
+    tools:context=".WorkoutEndurance">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,9 +18,30 @@
         <include
             layout="@layout/main_toolbar"/>
 
+        <FrameLayout
+            android:id="@+id/dataHistoryFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/amber_100">
 
+        </FrameLayout>
 
-    </RelativeLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="5dp" />
+
+        <FrameLayout
+            android:id="@+id/mapHistoryFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_100">
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="300dp"

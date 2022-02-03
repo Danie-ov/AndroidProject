@@ -1,7 +1,6 @@
 package com.example.androidproject;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -117,7 +116,7 @@ public class EnduranceDataFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(@NonNull DocumentReference documentReference) {
-                                    Toast.makeText(getContext(), "Successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Saved to history", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -144,7 +143,7 @@ public class EnduranceDataFragment extends Fragment {
         stopAlert.show();
     }
 
-    private String getDate() {
+    public static String getDate() {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String str = formatter.format(date);
@@ -161,7 +160,7 @@ public class EnduranceDataFragment extends Fragment {
                     public void run() {
                         time++;
                         TV_timer.setText(getTimerText());
-                        if(callBackWorkout != null){
+                        /*if(callBackWorkout != null){
                             if(Integer.parseInt(getTimerText().substring(6)) % 10 == 0){
                                 distance = callBackWorkout.getDistancePoints(startLocation);
                                 Log.d("distance", "equal to = " + distance);
@@ -181,7 +180,7 @@ public class EnduranceDataFragment extends Fragment {
                                     lastSec = currentSec;
                                 }
                             }
-                        }
+                        }*/
                     }
                 });
             }

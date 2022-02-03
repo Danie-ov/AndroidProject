@@ -2,53 +2,60 @@ package com.example.androidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-
-public class WorkoutEndurance extends AppCompatActivity {
+public class WorkoutResult extends AppCompatActivity {
 
     DrawerLayout Workout_FR_DrawerLayout;
 
-    MapFragment mapFragment;
-    EnduranceDataFragment dataFragment;
+    MapFragment mapHistoryFragment;
+    EnduranceDataHistoryFragment dataHistoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_endurance);
+        setContentView(R.layout.activity_workout_result);
 
         Workout_FR_DrawerLayout = findViewById(R.id.nav_drawer_layout_menu);
 
-        mapFragment = new MapFragment();
+        String date = getIntent().getStringExtra("message_key1");
+        String type = getIntent().getStringExtra("message_key2");
+
+        mapHistoryFragment = new MapFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.mapFrame, mapFragment)
+                .replace(R.id.mapHistoryFrame, mapHistoryFragment)
                 .commit();
 
-        dataFragment = new EnduranceDataFragment();
-        dataFragment.setCallbackWorkout(callBackWorkout);
+        dataHistoryFragment = new EnduranceDataHistoryFragment();
+        Bundle b = new Bundle();
+        b.putString("myDate", date);
+        b.putString("myType", type);
+        dataHistoryFragment.setArguments(b);
+        dataHistoryFragment.setCallbackWorkout(callBackWorkout);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.dataFrame, dataFragment)
+                .replace(R.id.dataHistoryFrame, dataHistoryFragment)
                 .commit();
+
     }
 
-    CallBackWorkout callBackWorkout = new CallBackWorkout() {
+    CallBackWorkout callBackWorkout = new CallBackWorkout(){
 
         @Override
         public Location getMapCurrentLocation() {
-            Location location = mapFragment.getCurrentLocation();
-            return location;
+            return null;
         }
 
         @Override
         public float getDistancePoints(Location location) {
-            float dis = mapFragment.checkDistance(location);
-            return dis;
+            return 0;
         }
 
         @Override

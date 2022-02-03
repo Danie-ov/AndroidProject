@@ -41,8 +41,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         WorkoutViewHolder workoutViewHolder = (WorkoutViewHolder) holder;
         Workout workout = getItem(position);
 
-        workoutViewHolder.list_LBL_date.setText(workout.getDate()); //check why print 0.0
-        Log.d("pttt", "workout date: " + workout.getDate());
+        workoutViewHolder.list_LBL_date.setText(workout.getDate());
         workoutViewHolder.list_LBL_type.setText(workout.getType());
     }
 
@@ -78,7 +77,6 @@ public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         }
                     }
             );
-            //add here click something
         }
     }
 }

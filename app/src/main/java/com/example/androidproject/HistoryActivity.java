@@ -3,10 +3,15 @@ package com.example.androidproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,13 +22,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
     DrawerLayout historyDrawerLayout;
 
     private FirebaseFirestore db;
-
     private RecyclerView list_RV_workouts;
 
     private WorkoutAdapter adapter;
@@ -38,9 +46,8 @@ public class HistoryActivity extends AppCompatActivity {
 
         list_RV_workouts.setHasFixedSize(true);
         list_RV_workouts.setLayoutManager(new LinearLayoutManager(this));
+        list_RV_workouts.setItemAnimator(new DefaultItemAnimator());
         list_RV_workouts.setAdapter(adapter);
-
-        addWorkoutsToList();
     }
 
     private void addWorkoutsToList() {
@@ -51,13 +58,17 @@ public class HistoryActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                Workout workout = new Workout();
-                                workout.setType(document.get("Type").toString());
-                                workout.setDate(document.get("Date").toString());
-                                workout.setDate(document.get("Duration").toString());
-                                workout.setDate(document.get("Distance").toString());
-                                workout.setDate(document.get("Average").toString());
-                                list.add(workout);
+                                String id = LoginActivity.getEmail();
+                                if(id.equals(document.get("ID").toString())){
+                                    String type = (document.get("Type").toString());
+                                    String date = (document.get("Date").toString());
+                                    String duration = (document.get("Duration").toString());
+                                    double distance = (Double.parseDouble(document.get("Distance").toString()));
+                                    double average = (Double.parseDouble(document.get("Average").toString()));
+                                    Workout workout = new Workout(type, duration, distance, average, date, id);
+                                    list.add(workout);
+                                    sortByDate();
+                                }
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -65,14 +76,29 @@ public class HistoryActivity extends AppCompatActivity {
                 });
     }
 
+    private void sortByDate() {
+        list.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+    }
+
     private void findViews() {
         historyDrawerLayout = findViewById(R.id.nav_drawer_layout_menu);
 
         list_RV_workouts = findViewById(R.id.list_RV_workouts);
-
         db = FirebaseFirestore.getInstance();
+
         list = new ArrayList<>();
+        addWorkoutsToList();
         adapter = new WorkoutAdapter(this, list);
+
+        adapter.setWorkoutItemClickListener(new WorkoutAdapter.WorkoutItemClickListener() {
+            @Override
+            public void workoutItemClick(Workout workout, int position) {
+                Intent intent = new Intent(HistoryActivity.this,WorkoutResult.class);
+                intent.putExtra("message_key1", workout.getDate());
+                intent.putExtra("message_key2", workout.getType());
+                startActivity(intent);
+            }
+        });
     }
 
     public void ClickMenu(View view){

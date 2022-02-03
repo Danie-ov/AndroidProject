@@ -2,27 +2,29 @@ package com.example.androidproject;
 
 public class Workout {
     private String type = " ";
-    private double duration = 0.0;
+    private String duration = " ";
     private double distance = 0.0;
     private double average  = 0.0;
-    private String date       = " ";
+    private String date  = " ";
+    private String id = " ";
 
     public Workout(){
     }
 
-    public Workout(String type, double duration, double distance, double average, String date){
+    public Workout(String type, String duration, double distance, double average, String date, String id){
         this.type = type;
         this.duration = duration;
         this.distance = distance;
         this.average = average;
         this.date = date;
+        this.id = id;
     }
 
-    public double getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -56,6 +58,14 @@ public class Workout {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }
