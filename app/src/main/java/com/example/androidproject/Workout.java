@@ -3,15 +3,15 @@ package com.example.androidproject;
 public class Workout {
     private String type = " ";
     private String duration = " ";
-    private double distance = 0.0;
-    private double average  = 0.0;
+    private float distance = 0.0F;
+    private float average  = 0.0F;
     private String date  = " ";
     private String id = " ";
 
     public Workout(){
     }
 
-    public Workout(String type, String duration, double distance, double average, String date, String id){
+    public Workout(String type, String duration, float distance, float average, String date, String id){
         this.type = type;
         this.duration = duration;
         this.distance = distance;
@@ -28,19 +28,19 @@ public class Workout {
         this.duration = duration;
     }
 
-    public double getDistance() {
+    public float getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
 
-    public double getAverage() {
+    public float getAverage() {
         return average;
     }
 
-    public void setAverage(double average) {
+    public void setAverage(float average) {
         this.average = average;
     }
 

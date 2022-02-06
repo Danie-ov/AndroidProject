@@ -77,7 +77,7 @@ public class MapFragment extends Fragment {
                                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                                 MarkerOptions markerOptions = new MarkerOptions();
                                 markerOptions.position(latLng);
-                                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                                markerOptions.title(latLng.latitude + ":" + latLng.longitude);
                                 googleMap.clear();
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                                 googleMap.addMarker(markerOptions);

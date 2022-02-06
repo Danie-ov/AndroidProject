@@ -63,8 +63,8 @@ public class HistoryActivity extends AppCompatActivity {
                                     String type = (document.get("Type").toString());
                                     String date = (document.get("Date").toString());
                                     String duration = (document.get("Duration").toString());
-                                    double distance = (Double.parseDouble(document.get("Distance").toString()));
-                                    double average = (Double.parseDouble(document.get("Average").toString()));
+                                    float distance = Float.valueOf(document.get("Distance").toString()).floatValue();
+                                    float average = Float.valueOf(document.get("Average").toString()).floatValue();
                                     Workout workout = new Workout(type, duration, distance, average, date, id);
                                     list.add(workout);
                                     sortByDate();

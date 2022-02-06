@@ -10,7 +10,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,10 +42,15 @@ public class ChartsActivity extends AppCompatActivity {
         chartsDrawerLayout = findViewById(R.id.nav_drawer_layout_menu);
         barChart = findViewById(R.id.barChart);
         db = FirebaseFirestore.getInstance();
-
-        ArrayList<BarEntry> workouts = new ArrayList<>();
         LocalDate today = LocalDate.now();
-        checkDate(today);
+
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setMaxVisibleValueCount(50);
+        barChart.setPinchZoom(false);
+        barChart.setDrawGridBackground(true);
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
 
         db.collection("Workout")
                 .get()
@@ -47,20 +58,30 @@ public class ChartsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
+                            int cur1 = today.getDayOfMonth();
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                int currDay = 0, currMonth = 0;
-                                splitDateFromDB(currDay, currMonth,document.get("Date").toString());
-                                /*if(currDay == day && currMonth == month){
-                                    workouts.add(new BarEntry(day+"/"+month, document.get("Distance").toString()));
-                                }*/
+                                int cur2 = Integer.parseInt(document.get("Date").toString().substring(0,2));
+                                if(document.get("ID").toString().equals(LoginActivity.getEmail()) && cur1==cur2){
+                                    entries.add(new BarEntry(cur1, Float.valueOf(document.get("Distance").toString()).floatValue()));
+                                    cur1 = (cur1+1)%30;
+                                    Log.d("p/chart", "distance: " + document.get("Distance").toString());
+                                }
                             }
-
                         }else{
                             Toast.makeText(ChartsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
+        BarDataSet barDataSet = new BarDataSet(entries, "Workouts");
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        barDataSet.setValueTextSize(16f);
+
+        BarData data = new BarData(barDataSet);
+
+        barChart.setFitBars(true);
+        barChart.setData(data);
+        barChart.animateY(2000);
 
     }
 
