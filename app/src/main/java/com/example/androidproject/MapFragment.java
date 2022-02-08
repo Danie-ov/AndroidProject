@@ -1,17 +1,17 @@
 package com.example.androidproject;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationRequest;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -26,18 +26,25 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.CancellationToken;
+import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapFragment extends Fragment {
 
     FusedLocationProviderClient client;
     SupportMapFragment supportMapFragment;
     Location location;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,57 +68,90 @@ public class MapFragment extends Fragment {
                 && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
+        CancellationToken cts = new CancellationToken() {
+            @NonNull
+            @Override
+            public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) {
+                return null;
+            }
+
+            @Override
+            public boolean isCancellationRequested() {
+                return false;
+            }
+        };
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+        client.getCurrentLocation(LocationRequest.QUALITY_HIGH_ACCURACY, cts).addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 location = task.getResult();
                 if (location != null) {
-                    try {
-                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                        List<Address> addresses = geocoder.getFromLocation(
-                                location.getLatitude(), location.getLongitude(), 1);
-                        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                            @Override
-                            public void onMapReady(@NonNull GoogleMap googleMap) {
-                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.position(latLng);
-                                markerOptions.title(latLng.latitude + ":" + latLng.longitude);
-                                googleMap.clear();
-                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                                googleMap.addMarker(markerOptions);
-                            }
-                        });
+                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(@NonNull GoogleMap googleMap) {
+                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(latLng);
+                            markerOptions.title(latLng.latitude + ":" + latLng.longitude);
+                            googleMap.clear();
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                            googleMap.addMarker(markerOptions);
+                        }
+                    });
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         });
         return location;
     }
 
-    public void displayTrack(double lat, double lon){
-        try {
-            Uri uri = Uri.parse("https://www.google.co.in/maps/dir/" + lat + "/" + lon);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.setPackage("com.google.android.apps.maps");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }catch (ActivityNotFoundException e){
-            Uri uri = Uri.parse("https://play/google.com/store/apps/details?id=com.google.android.apps.maps");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+    public void displayTrack(LatLng start, LatLng end){
+        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl("https://maps.googleapis.com/")
+                .build();
+
+
     }
 
     public float checkDistance(Location startLocation){
 
         float dis = startLocation.distanceTo(getCurrentLocation());
         return dis;
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List poly = new ArrayList();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
     }
 
 }

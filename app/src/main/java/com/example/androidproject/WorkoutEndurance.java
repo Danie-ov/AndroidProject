@@ -8,6 +8,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.maps.model.LatLng;
+
 
 public class WorkoutEndurance extends AppCompatActivity {
 
@@ -52,8 +54,8 @@ public class WorkoutEndurance extends AppCompatActivity {
         }
 
         @Override
-        public void showTrace(double lat, double lon) {
-
+        public void showTrace(LatLng start, LatLng end) {
+            mapFragment.displayTrack(start, end);
         }
     };
 

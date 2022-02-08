@@ -1,23 +1,28 @@
 package com.example.androidproject;
 
+import android.location.Location;
+
+import java.util.ArrayList;
+
 public class Workout {
     private String type = " ";
     private String duration = " ";
-    private float distance = 0.0F;
-    private float average  = 0.0F;
+    private double distance = 0.0;
+    private double average  = 0.0;
     private String date  = " ";
     private String id = " ";
+    private ArrayList<myLocation> locations;
 
     public Workout(){
     }
-
-    public Workout(String type, String duration, float distance, float average, String date, String id){
+    public Workout(String type, String duration, double distance, double average, String date, String id, ArrayList<myLocation> locations){
         this.type = type;
         this.duration = duration;
         this.distance = distance;
         this.average = average;
         this.date = date;
         this.id = id;
+        this.locations = locations;
     }
 
     public String getDuration() {
@@ -28,19 +33,19 @@ public class Workout {
         this.duration = duration;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
-    public float getAverage() {
+    public double getAverage() {
         return average;
     }
 
-    public void setAverage(float average) {
+    public void setAverage(double average) {
         this.average = average;
     }
 
@@ -68,4 +73,11 @@ public class Workout {
         this.id = id;
     }
 
+    public ArrayList<myLocation> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(ArrayList<myLocation> locations) {
+        this.locations = locations;
+    }
 }

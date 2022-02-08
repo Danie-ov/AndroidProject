@@ -60,9 +60,9 @@ public class ChartsActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             int cur1 = today.getDayOfMonth();
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                int cur2 = Integer.parseInt(document.get("Date").toString().substring(0,2));
+                                int cur2 = Integer.parseInt(document.get("date").toString().substring(0,2));
                                 if(document.get("ID").toString().equals(LoginActivity.getEmail()) && cur1==cur2){
-                                    entries.add(new BarEntry(cur1, Float.valueOf(document.get("Distance").toString()).floatValue()));
+                                    entries.add(new BarEntry(cur1, Float.valueOf(document.get("distance").toString()).floatValue()));
                                     cur1 = (cur1+1)%30;
                                     Log.d("p/chart", "distance: " + document.get("Distance").toString());
                                 }

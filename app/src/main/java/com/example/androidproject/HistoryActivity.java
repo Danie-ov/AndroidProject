@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private WorkoutAdapter adapter;
     private ArrayList<Workout> list;
+    private Workout workout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +61,13 @@ public class HistoryActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 String id = LoginActivity.getEmail();
-                                if(id.equals(document.get("ID").toString())){
-                                    String type = (document.get("Type").toString());
-                                    String date = (document.get("Date").toString());
-                                    String duration = (document.get("Duration").toString());
-                                    float distance = Float.valueOf(document.get("Distance").toString()).floatValue();
-                                    float average = Float.valueOf(document.get("Average").toString()).floatValue();
-                                    Workout workout = new Workout(type, duration, distance, average, date, id);
+                                if(id.equals(document.get("id").toString())){
+                                    String type = (document.get("type").toString());
+                                    String date = (document.get("date").toString());
+                                    String duration = (document.get("duration").toString());
+                                    double distance = Double.parseDouble(document.get("distance").toString());
+                                    double average = Double.parseDouble(document.get("average").toString());
+                                    workout = new Workout(type, duration, distance, average, date, id, workout.getLocations());
                                     list.add(workout);
                                     sortByDate();
                                 }

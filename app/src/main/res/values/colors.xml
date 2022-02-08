@@ -17,4 +17,7 @@
     <color name="green_200">#69F0AE</color>
     <color name="red_200">#EF9A9A</color>
     <color name="indigo_500">#3F51B5</color>
+    <color name="blue_50">#E3F2FD</color>
+    <color name="TXF_color">#222934</color>
+    <color name="EDT_color">#989898</color>
 </resources>

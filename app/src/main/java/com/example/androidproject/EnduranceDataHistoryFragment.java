@@ -53,13 +53,13 @@ public class EnduranceDataHistoryFragment extends Fragment {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 String id = LoginActivity.getEmail();
-                                if(id.equals(document.get("ID").toString()) && myDate.equals(document.get("Date").toString())
-                                            && myType.equals(document.get("Type").toString())){
-                                    resWorkout.setText(document.get("Type").toString());
-                                    resDate.setText(document.get("Date").toString());
-                                    resDuration.setText(document.get("Duration").toString());
-                                    resDistance.setText(document.get("Distance").toString());
-                                    resAverage.setText(document.get("Average").toString());
+                                if(id.equals(document.get("id").toString()) && myDate.equals(document.get("date").toString())
+                                            && myType.equals(document.get("type").toString())){
+                                    resWorkout.setText(document.get("type").toString());
+                                    resDate.setText(document.get("date").toString());
+                                    resDuration.setText(document.get("duration").toString());
+                                    resDistance.setText(document.get("distance").toString());
+                                    resAverage.setText(document.get("average").toString());
                                 }
                             }
                         }
