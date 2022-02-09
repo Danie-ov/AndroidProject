@@ -15,6 +15,7 @@ public class Workout {
 
     public Workout(){
     }
+
     public Workout(String type, String duration, double distance, double average, String date, String id, ArrayList<myLocation> locations){
         this.type = type;
         this.duration = duration;

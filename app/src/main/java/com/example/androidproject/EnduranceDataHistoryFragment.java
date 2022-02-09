@@ -9,13 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnduranceDataHistoryFragment extends Fragment {
 
@@ -30,6 +35,9 @@ public class EnduranceDataHistoryFragment extends Fragment {
     private MaterialTextView resAverage;
 
     private String myDate, myType;
+    ArrayList<LatLng> latLngs = new ArrayList<>();
+
+    Workout workout;
 
     public void setCallbackWorkout(CallBackWorkout callBackWorkout) {
         this.callBackWorkout = callBackWorkout;
@@ -55,11 +63,17 @@ public class EnduranceDataHistoryFragment extends Fragment {
                                 String id = LoginActivity.getEmail();
                                 if(id.equals(document.get("id").toString()) && myDate.equals(document.get("date").toString())
                                             && myType.equals(document.get("type").toString())){
-                                    resWorkout.setText(document.get("type").toString());
-                                    resDate.setText(document.get("date").toString());
-                                    resDuration.setText(document.get("duration").toString());
-                                    resDistance.setText(document.get("distance").toString());
-                                    resAverage.setText(document.get("average").toString());
+                                    workout = document.toObject(Workout.class);
+                                    resWorkout.setText(workout.getType());
+                                    resDate.setText(workout.getDate());
+                                    resDuration.setText(workout.getDuration());
+                                    resDistance.setText(String.valueOf(workout.getDistance()));
+                                    resAverage.setText(String.valueOf(workout.getAverage()));
+                                    for(int i = 0; i < workout.getLocations().size(); i++) {
+                                        latLngs.add(new LatLng(workout.getLocations().get(i).getLat(), workout.getLocations().get(i).getLon()));
+                                    }
+                                    callBackWorkout.showTrace(latLngs);
+                                    Toast.makeText(getContext(), "After displayTrack", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

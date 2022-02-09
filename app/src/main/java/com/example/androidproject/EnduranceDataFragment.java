@@ -175,14 +175,13 @@ public class EnduranceDataFragment extends Fragment {
                         if(callBackWorkout != null){
                             if(Integer.parseInt(getTimerText().substring(6)) % 15 == 0){
                                 distance = callBackWorkout.getDistancePoints(startLocation);
-                                //Toast.makeText(getContext(), "distance = " + distance, Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(getContext(), tempLocation.getLatitude() + ":" + tempLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                                distance *= 0.001;
                                 TV_distance.setText(String.format("%.3f",distance));
                                 tempLocation = callBackWorkout.getMapCurrentLocation();
                                 myLocation = new myLocation(tempLocation.getLatitude(), tempLocation.getLongitude(), getDate());
                                 locations.add(myLocation);
                             }
-                            /*if(String.valueOf(distance).endsWith("0") && distance >= 0.1){
+                            if((int)distance%2 == 0 && distance > 1){
                                 if(lastMin == 0 && lastSec == 0){
                                     lastMin = Integer.parseInt(getTimerText().substring(3, 5));
                                     lastSec = Integer.parseInt(getTimerText().substring(6));
@@ -195,7 +194,7 @@ public class EnduranceDataFragment extends Fragment {
                                     lastMin = currentMin;
                                     lastSec = currentSec;
                                 }
-                            }*/
+                            }
                         }
                     }
                 });

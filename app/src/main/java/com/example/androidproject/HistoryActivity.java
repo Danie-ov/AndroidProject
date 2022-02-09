@@ -39,6 +39,8 @@ public class HistoryActivity extends AppCompatActivity {
     private ArrayList<Workout> list;
     private Workout workout;
 
+    ArrayList<myLocation> locations = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +63,8 @@ public class HistoryActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 String id = LoginActivity.getEmail();
-                                if(id.equals(document.get("id").toString())){
-                                    String type = (document.get("type").toString());
-                                    String date = (document.get("date").toString());
-                                    String duration = (document.get("duration").toString());
-                                    double distance = Double.parseDouble(document.get("distance").toString());
-                                    double average = Double.parseDouble(document.get("average").toString());
-                                    workout = new Workout(type, duration, distance, average, date, id, workout.getLocations());
+                                if ( id.equals(document.get("id").toString())){
+                                    workout = document.toObject(Workout.class);
                                     list.add(workout);
                                     sortByDate();
                                 }

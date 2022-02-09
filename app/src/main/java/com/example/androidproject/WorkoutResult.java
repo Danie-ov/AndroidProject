@@ -18,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class WorkoutResult extends AppCompatActivity {
 
     DrawerLayout Workout_FR_DrawerLayout;
@@ -27,6 +29,7 @@ public class WorkoutResult extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    ArrayList<myLocation> locations = new ArrayList<>();
     Workout workout;
 
     @Override
@@ -54,7 +57,8 @@ public class WorkoutResult extends AppCompatActivity {
                                     String duration = (document.get("duration").toString());
                                     double distance = Double.parseDouble(document.get("distance").toString());
                                     double average = Double.parseDouble(document.get("average").toString());
-                                    workout = new Workout(type, duration, distance, average, date, id, workout.getLocations());
+                                    locations = (ArrayList<myLocation>)document.get("locations");
+                                    workout = new Workout(type, duration, distance, average, date, id, locations);
                                 }
                             }
                         }
@@ -94,8 +98,8 @@ public class WorkoutResult extends AppCompatActivity {
         }
 
         @Override
-        public void showTrace(LatLng start, LatLng end) {
-            mapHistoryFragment.displayTrack(start, end);
+        public void showTrace(ArrayList<LatLng> locations) {
+            mapHistoryFragment.displayTrack(locations);
         }
     };
 

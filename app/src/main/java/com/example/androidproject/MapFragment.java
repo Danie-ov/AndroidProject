@@ -2,6 +2,7 @@ package com.example.androidproject;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,6 +28,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,17 +48,21 @@ public class MapFragment extends Fragment {
     FusedLocationProviderClient client;
     SupportMapFragment supportMapFragment;
     Location location;
+    GoogleMap map;
 
+    Polyline polyline = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+        supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
+            Toast.makeText(getContext(), "Access permission", Toast.LENGTH_SHORT).show();
         } else {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
@@ -105,53 +113,24 @@ public class MapFragment extends Fragment {
         return location;
     }
 
-    public void displayTrack(LatLng start, LatLng end){
-        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://maps.googleapis.com/")
-                .build();
-
-
+    public void displayTrack(ArrayList<LatLng> locations){
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(@NonNull GoogleMap googleMap) {
+                map = googleMap;
+                if(polyline != null) polyline.remove();
+                PolylineOptions polylineOptions = new PolylineOptions()
+                        .addAll(locations).clickable(true);
+                polyline = map.addPolyline(polylineOptions);
+                polyline.setColor(Color.BLUE);
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(locations.get(0), 18));
+                Toast.makeText(getContext(), "Inside displayTrack", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public float checkDistance(Location startLocation){
-
         float dis = startLocation.distanceTo(getCurrentLocation());
         return dis;
     }
-
-    private List<LatLng> decodePoly(String encoded) {
-
-        List poly = new ArrayList();
-        int index = 0, len = encoded.length();
-        int lat = 0, lng = 0;
-
-        while (index < len) {
-            int b, shift = 0, result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-            lat += dlat;
-
-            shift = 0;
-            result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-            lng += dlng;
-
-            LatLng p = new LatLng((((double) lat / 1E5)),
-                    (((double) lng / 1E5)));
-            poly.add(p);
-        }
-
-        return poly;
-    }
-
 }

@@ -6,6 +6,9 @@ public class myLocation {
     private double lon = 0.0;
     private String date;
 
+    public myLocation(){
+    }
+
     public myLocation(double lat, double lon, String date){
         this.lat = lat;
         this.lon = lon;

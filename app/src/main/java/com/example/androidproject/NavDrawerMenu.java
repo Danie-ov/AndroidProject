@@ -9,7 +9,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 
 public class NavDrawerMenu extends AppCompatActivity {
@@ -24,7 +27,12 @@ public class NavDrawerMenu extends AppCompatActivity {
     private MaterialTextView TV_typeNameWalk;
     private MaterialTextView TV_typeNameRun;
 
+    private ShapeableImageView atCycling;
+    private ShapeableImageView atRunning;
+    private ShapeableImageView atWalking;
+
     private static String type;
+
     public static String getWorkoutType() {
         return type;
     }
@@ -48,6 +56,16 @@ public class NavDrawerMenu extends AppCompatActivity {
         TV_typeNameCycle = findViewById(R.id.TV_typeNameCycle);
         TV_typeNameWalk = findViewById(R.id.TV_typeNameWalk);
         TV_typeNameRun = findViewById(R.id.TV_typeNameRun);
+
+        atCycling = findViewById(R.id.at_cycling);
+        atRunning = findViewById(R.id.at_running);
+        atWalking = findViewById(R.id.at_walking);
+
+        Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/androidfinalproject-e08ce.appspot.com/o/cycling.jpg?alt=media&token=1e4ea9c3-ee04-46d0-a48e-6873d97ff8dc").centerCrop().into(atCycling);
+        Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/androidfinalproject-e08ce.appspot.com/o/run.jpg?alt=media&token=6e8a1065-2208-4c80-8002-96f6bdbe2d04").centerCrop().into(atRunning);
+        Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/androidfinalproject-e08ce.appspot.com/o/walk.jpg?alt=media&token=69646538-9b46-4388-862b-d3f929ff384d").centerCrop().into(atWalking);
+
+
     }
 
     private void initButtons() {
@@ -77,12 +95,12 @@ public class NavDrawerMenu extends AppCompatActivity {
     }
 
     private void moveToWorkout() {
-        Intent intent= new Intent(this,WorkoutEndurance.class);
+        Intent intent = new Intent(this, WorkoutEndurance.class);
         startActivity(intent);
         finish();
     }
 
-    public void ClickMenu(View view){
+    public void ClickMenu(View view) {
 
         openDrawer(nav_drawer_layout_menu);
     }
@@ -92,34 +110,34 @@ public class NavDrawerMenu extends AppCompatActivity {
         nav_drawer_layout_menu.openDrawer(GravityCompat.START);
     }
 
-    public void ClickLogo(View view){
+    public void ClickLogo(View view) {
 
         closeDrawer(nav_drawer_layout_menu);
     }
 
     public static void closeDrawer(DrawerLayout nav_drawer_layout_menu) {
 
-        if(nav_drawer_layout_menu.isDrawerOpen(GravityCompat.START)){
+        if (nav_drawer_layout_menu.isDrawerOpen(GravityCompat.START)) {
             nav_drawer_layout_menu.closeDrawer(GravityCompat.START);
         }
     }
 
-    public void ClickWorkouts(View view){
+    public void ClickWorkouts(View view) {
 
         recreate();
     }
 
-    public void ClickHistory(View view){
+    public void ClickHistory(View view) {
 
         redirectActivity(this, HistoryActivity.class);
     }
 
-    public void ClickCharts(View view){
+    public void ClickCharts(View view) {
 
         redirectActivity(this, ChartsActivity.class);
     }
 
-    public void ClickProfile(View view){
+    public void ClickProfile(View view) {
 
         redirectActivity(this, ProfileActivity.class);
     }
