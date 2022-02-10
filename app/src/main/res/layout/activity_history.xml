@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/nav_drawer_layout_menu"
+    android:background="@color/yellow_50"
     tools:context="Activities.HistoryActivity">
 
     <LinearLayout

@@ -172,7 +172,7 @@ public class EnduranceDataFragment extends Fragment {
                         time++;
                         TV_timer.setText(getTimerText());
                         if(callBackWorkout != null){
-                            if(Integer.parseInt(getTimerText().substring(6)) % 15 == 0){
+                            if(Integer.parseInt(getTimerText().substring(6)) % 5 == 0){
                                 distance = callBackWorkout.getDistancePoints(startLocation);
                                 distance *= 0.001;
                                 TV_distance.setText(String.format("%.3f",distance));

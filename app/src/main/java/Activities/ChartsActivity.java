@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import com.example.androidproject.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,13 +26,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Models.Workout;
+
 public class ChartsActivity extends AppCompatActivity {
 
     DrawerLayout chartsDrawerLayout;
 
     private BarChart barChart;
     FirebaseFirestore db;
-    int day, month;
+    Workout workout;
+    ArrayList<String> dates = new ArrayList<>();
+    int i=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,14 @@ public class ChartsActivity extends AppCompatActivity {
         barChart = findViewById(R.id.barChart);
         db = FirebaseFirestore.getInstance();
         LocalDate today = LocalDate.now();
+
+        dates.add("Sun");
+        dates.add("Mon");
+        dates.add("Tue");
+        dates.add("Wed");
+        dates.add("Thu");
+        dates.add("Fri");
+        dates.add("Sat");
 
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(true);
@@ -56,13 +70,12 @@ public class ChartsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            int cur1 = today.getDayOfMonth();
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                int cur2 = Integer.parseInt(document.get("date").toString().substring(0,2));
-                                if(document.get("ID").toString().equals(LoginActivity.getEmail()) && cur1==cur2){
-                                    entries.add(new BarEntry(cur1, Float.valueOf(document.get("distance").toString()).floatValue()));
-                                    cur1 = (cur1+1)%30;
-                                    Log.d("p/chart", "distance: " + document.get("Distance").toString());
+                                if(document.get("id").toString().equals(LoginActivity.getEmail()) &&
+                                        today.getDayOfMonth() == Integer.parseInt(document.get("date").toString().substring(0,2))){
+                                    workout = document.toObject(Workout.class);
+                                    entries.add(new BarEntry(i, (float) workout.getDistance()));
+                                    i++;
                                 }
                             }
                         }else{
@@ -76,23 +89,19 @@ public class ChartsActivity extends AppCompatActivity {
         barDataSet.setValueTextSize(16f);
 
         BarData data = new BarData(barDataSet);
-
         barChart.setFitBars(true);
         barChart.setData(data);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(dates));
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(dates.size());
+        xAxis.setLabelRotationAngle(270);
         barChart.animateY(2000);
 
-    }
-
-    private void splitDateFromDB(int day, int month, String date) {
-        day = Integer.parseInt(date.substring(0, 2));
-        month = Integer.parseInt(date.substring(3, 5));
-    }
-
-    private void checkDate(LocalDate today) {
-        day = today.getDayOfMonth();
-        month = today.getMonthValue();
-        Log.d("p/day", "day = " + day);
-        Log.d("p/month", "month = " + month);
     }
 
     public void ClickMenu(View view){

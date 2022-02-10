@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_50"
     android:id="@+id/nav_drawer_layout_menu"
     tools:context="Activities.ProfileActivity">
 
@@ -67,7 +68,7 @@
                 android:text="Daniel"
                 android:layout_marginLeft="25dp"
                 android:textSize="18dp"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/purple_700"
                 android:textStyle="italic"/>
 
 
@@ -111,7 +112,7 @@
                 android:text="Niazov"
                 android:layout_marginLeft="25dp"
                 android:textSize="18dp"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/purple_700"
                 android:textStyle="italic"/>
 
 
@@ -155,7 +156,7 @@
                 android:text="danielos00100101@gmail.com"
                 android:layout_marginLeft="30dp"
                 android:textSize="18dp"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/purple_700"
                 android:textStyle="italic"/>
 
 
@@ -186,8 +187,8 @@
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="30dp"
                 app:cornerRadius="50dp"
-                android:textColor="@color/purple_200"
-                app:strokeColor="@color/purple_200"
+                android:textColor="@color/purple_700"
+                app:strokeColor="@color/purple_500"
                 android:shadowColor="@color/black"
                 android:elevation="1dp"
                 android:text="Log out"/>

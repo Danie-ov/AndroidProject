@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/blue_50"
     android:layout_height="match_parent"
     tools:context="Activities.SignUpActivity">
 
@@ -23,7 +24,7 @@
             android:paddingStart="-25dp"
             android:paddingEnd="5dp"
             android:text="Create an account"
-            android:textColor="@color/teal_200"
+            android:textColor="@color/indigo_500"
             android:textSize="22sp"
             android:textStyle="bold"/>
 
@@ -184,8 +185,8 @@
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="30dp"
                     app:cornerRadius="50dp"
-                    android:textColor="@color/purple_500"
-                    app:strokeColor="@color/purple_700"
+                    android:textColor="@color/purple_700"
+                    app:strokeColor="@color/purple_500"
                     android:shadowColor="@color/black"
                     android:elevation="1dp"
                     android:text="Sign up"/>
