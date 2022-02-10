@@ -26,7 +26,8 @@ public class EnduranceDataHistoryFragment extends Fragment {
 
     private FirebaseFirestore db;
 
-    private CallBackWorkout callBackWorkout;
+    private CallBackMapHistory callBackMapHistory;
+    //private CallBackWorkout callBackWorkout;
 
     private MaterialTextView resWorkout;
     private MaterialTextView resDate;
@@ -39,8 +40,12 @@ public class EnduranceDataHistoryFragment extends Fragment {
 
     Workout workout;
 
-    public void setCallbackWorkout(CallBackWorkout callBackWorkout) {
+    /*public void setCallbackWorkout(CallBackWorkout callBackWorkout){
         this.callBackWorkout = callBackWorkout;
+    }*/
+
+    public void setCallBackMapHistory(CallBackMapHistory callBackMapHistory) {
+        this.callBackMapHistory = callBackMapHistory;
     }
 
     @Override
@@ -72,8 +77,8 @@ public class EnduranceDataHistoryFragment extends Fragment {
                                     for(int i = 0; i < workout.getLocations().size(); i++) {
                                         latLngs.add(new LatLng(workout.getLocations().get(i).getLat(), workout.getLocations().get(i).getLon()));
                                     }
-                                    callBackWorkout.showTrace(latLngs);
-                                    Toast.makeText(getContext(), "After displayTrack", Toast.LENGTH_SHORT).show();
+                                    if(callBackMapHistory != null)
+                                        callBackMapHistory.showTrace(latLngs);
                                 }
                             }
                         }

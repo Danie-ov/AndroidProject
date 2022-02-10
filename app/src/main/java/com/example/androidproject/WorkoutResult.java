@@ -24,7 +24,7 @@ public class WorkoutResult extends AppCompatActivity {
 
     DrawerLayout Workout_FR_DrawerLayout;
 
-    MapFragment mapHistoryFragment;
+    MapHistoryFragment mapHistoryFragment;
     EnduranceDataHistoryFragment dataHistoryFragment;
 
     private FirebaseFirestore db;
@@ -65,7 +65,8 @@ public class WorkoutResult extends AppCompatActivity {
                     }
                 });
 
-        mapHistoryFragment = new MapFragment();
+        mapHistoryFragment = new MapHistoryFragment();
+        mapHistoryFragment.setCallBackMapHistory(callBackMapHistory);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.mapHistoryFrame, mapHistoryFragment)
@@ -76,32 +77,33 @@ public class WorkoutResult extends AppCompatActivity {
         b.putString("myDate", dateTemp);
         b.putString("myType", typeTemp);
         dataHistoryFragment.setArguments(b);
-        dataHistoryFragment.setCallbackWorkout(callBackWorkout);
+        //dataHistoryFragment.setCallbackWorkout(callBackWorkout);
+        dataHistoryFragment.setCallBackMapHistory(callBackMapHistory);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.dataHistoryFrame, dataHistoryFragment)
                 .commit();
     }
 
-    CallBackWorkout callBackWorkout = new CallBackWorkout(){
-
-        @Override
-        public Location getMapCurrentLocation() {
-            Location location = mapHistoryFragment.getCurrentLocation();
-            return location;
-        }
-
-        @Override
-        public float getDistancePoints(Location location) {
-            float dis = mapHistoryFragment.checkDistance(location);
-            return dis;
-        }
+    CallBackMapHistory callBackMapHistory = new CallBackMapHistory(){
 
         @Override
         public void showTrace(ArrayList<LatLng> locations) {
             mapHistoryFragment.displayTrack(locations);
         }
     };
+
+    /*CallBackWorkout callBackWorkout = new CallBackWorkout() {
+        @Override
+        public Location getMapCurrentLocation() {
+            return null;
+        }
+
+        @Override
+        public float getDistancePoints(Location location) {
+            return 0;
+        }
+    };*/
 
     public void ClickMenu(View view){
 

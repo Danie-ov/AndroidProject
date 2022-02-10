@@ -45,12 +45,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapFragment extends Fragment {
 
+    private CallBackWorkout callBackWorkout;
+
     FusedLocationProviderClient client;
     SupportMapFragment supportMapFragment;
     Location location;
-    GoogleMap map;
 
-    Polyline polyline = null;
+    public void setCallbackWorkout(CallBackWorkout callBackWorkout) {
+        this.callBackWorkout = callBackWorkout;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +65,6 @@ public class MapFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
-            Toast.makeText(getContext(), "Access permission", Toast.LENGTH_SHORT).show();
         } else {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
@@ -106,27 +108,10 @@ public class MapFragment extends Fragment {
                             googleMap.addMarker(markerOptions);
                         }
                     });
-
                 }
             }
         });
         return location;
-    }
-
-    public void displayTrack(ArrayList<LatLng> locations){
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull GoogleMap googleMap) {
-                map = googleMap;
-                if(polyline != null) polyline.remove();
-                PolylineOptions polylineOptions = new PolylineOptions()
-                        .addAll(locations).clickable(true);
-                polyline = map.addPolyline(polylineOptions);
-                polyline.setColor(Color.BLUE);
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(locations.get(0), 18));
-                Toast.makeText(getContext(), "Inside displayTrack", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public float checkDistance(Location startLocation){

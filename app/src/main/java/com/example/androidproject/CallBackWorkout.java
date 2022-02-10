@@ -9,5 +9,4 @@ import java.util.ArrayList;
 public interface CallBackWorkout {
     Location getMapCurrentLocation();
     float getDistancePoints(Location location);
-    void showTrace(ArrayList<LatLng> locations);
 }

@@ -28,6 +28,7 @@ public class WorkoutEndurance extends AppCompatActivity {
         Workout_FR_DrawerLayout = findViewById(R.id.nav_drawer_layout_menu);
 
         mapFragment = new MapFragment();
+        mapFragment.setCallbackWorkout(callBackWorkout);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.mapFrame, mapFragment)
@@ -53,11 +54,6 @@ public class WorkoutEndurance extends AppCompatActivity {
         public float getDistancePoints(Location location) {
             float dis = mapFragment.checkDistance(location);
             return dis;
-        }
-
-        @Override
-        public void showTrace(ArrayList<LatLng> locations) {
-            mapFragment.displayTrack(locations);
         }
     };
 
