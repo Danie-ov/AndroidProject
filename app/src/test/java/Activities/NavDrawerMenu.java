@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,11 +9,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.androidproject.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
+
+import UI.WorkoutEndurance;
 
 public class NavDrawerMenu extends AppCompatActivity {
 

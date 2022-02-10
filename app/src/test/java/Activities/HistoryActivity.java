@@ -1,21 +1,17 @@
-package com.example.androidproject;
+package Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.androidproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,10 +19,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+
+import Models.Workout;
+import Models.WorkoutAdapter;
+import Models.myLocation;
+import UI.WorkoutResult;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -92,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity {
         adapter.setWorkoutItemClickListener(new WorkoutAdapter.WorkoutItemClickListener() {
             @Override
             public void workoutItemClick(Workout workout, int position) {
-                Intent intent = new Intent(HistoryActivity.this,WorkoutResult.class);
+                Intent intent = new Intent(HistoryActivity.this, WorkoutResult.class);
                 intent.putExtra("message_key1", workout.getDate());
                 intent.putExtra("message_key2", workout.getType());
                 startActivity(intent);

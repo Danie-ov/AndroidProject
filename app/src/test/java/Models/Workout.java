@@ -1,6 +1,4 @@
-package com.example.androidproject;
-
-import android.location.Location;
+package Models;
 
 import java.util.ArrayList;
 

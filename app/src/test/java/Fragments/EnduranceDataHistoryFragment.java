@@ -1,16 +1,18 @@
-package com.example.androidproject;
+package Fragments;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import CallBacks.CallBackMapHistory;
+import Activities.LoginActivity;
+import com.example.androidproject.R;
+import Models.Workout;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,14 +22,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EnduranceDataHistoryFragment extends Fragment {
 
     private FirebaseFirestore db;
 
     private CallBackMapHistory callBackMapHistory;
-    //private CallBackWorkout callBackWorkout;
 
     private MaterialTextView resWorkout;
     private MaterialTextView resDate;
@@ -37,12 +37,7 @@ public class EnduranceDataHistoryFragment extends Fragment {
 
     private String myDate, myType;
     ArrayList<LatLng> latLngs = new ArrayList<>();
-
     Workout workout;
-
-    /*public void setCallbackWorkout(CallBackWorkout callBackWorkout){
-        this.callBackWorkout = callBackWorkout;
-    }*/
 
     public void setCallBackMapHistory(CallBackMapHistory callBackMapHistory) {
         this.callBackMapHistory = callBackMapHistory;

@@ -22,31 +22,31 @@
             android:value="map_key" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name="Activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".WorkoutResult"
+            android:name="UI.WorkoutResult"
             android:exported="false" />
         <activity
-            android:name=".WorkoutEndurance"
+            android:name="UI.WorkoutEndurance"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="Activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ChartsActivity"
+            android:name="Activities.ChartsActivity"
             android:exported="false" />
         <activity
-            android:name=".HistoryActivity"
+            android:name="Activities.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".NavDrawerMenu"
+            android:name="Activities.NavDrawerMenu"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name="Activities.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name="Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

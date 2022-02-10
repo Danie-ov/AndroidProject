@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.androidproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

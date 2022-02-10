@@ -1,16 +1,21 @@
-package com.example.androidproject;
+package UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.gms.maps.model.LatLng;
+import Activities.ChartsActivity;
+import Activities.HistoryActivity;
+import Activities.NavDrawerMenu;
+import Activities.ProfileActivity;
+import com.example.androidproject.R;
 
-import java.util.ArrayList;
+import CallBacks.CallBackWorkout;
+import Fragments.EnduranceDataFragment;
+import Fragments.MapFragment;
 
 
 public class WorkoutEndurance extends AppCompatActivity {

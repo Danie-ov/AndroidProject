@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Models;
 
 public class myLocation {
 

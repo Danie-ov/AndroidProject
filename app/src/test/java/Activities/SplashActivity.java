@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.androidproject.R;
 import com.google.android.material.textview.MaterialTextView;
 
 public class SplashActivity extends AppCompatActivity {

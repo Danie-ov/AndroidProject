@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,15 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.androidproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -111,13 +109,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void moveToSignupPage(){
-        Intent intent= new Intent(this,SignUpActivity.class);
+        Intent intent= new Intent(this, SignUpActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void moveToMenuPage() {
-        Intent intent= new Intent(this,NavDrawerMenu.class);
+        Intent intent= new Intent(this, NavDrawerMenu.class);
         startActivity(intent);
         finish();
     }

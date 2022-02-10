@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Fragments;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -9,28 +9,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import CallBacks.CallBackWorkout;
+import Activities.LoginActivity;
+import Activities.NavDrawerMenu;
+import com.example.androidproject.R;
+import Models.Workout;
+import Models.myLocation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,7 +47,7 @@ public class EnduranceDataFragment extends Fragment {
     private MaterialButton BTN_start;
 
     ArrayList<Workout> workouts = new ArrayList<>();
-    ArrayList<myLocation> locations = new ArrayList<>();
+    ArrayList<Models.myLocation> locations = new ArrayList<>();
     Workout workout;
 
     myLocation myLocation;

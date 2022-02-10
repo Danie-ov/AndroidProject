@@ -1,16 +1,18 @@
-package com.example.androidproject;
+package UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
+import Activities.ChartsActivity;
+import Activities.HistoryActivity;
+import Activities.LoginActivity;
+import Activities.NavDrawerMenu;
+import Activities.ProfileActivity;
+import com.example.androidproject.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +21,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
+import CallBacks.CallBackMapHistory;
+import Fragments.EnduranceDataHistoryFragment;
+import Fragments.MapHistoryFragment;
+import Models.Workout;
+import Models.myLocation;
 
 public class WorkoutResult extends AppCompatActivity {
 

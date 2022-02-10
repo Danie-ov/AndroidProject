@@ -1,4 +1,4 @@
-package com.example.androidproject;
+package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -11,16 +11,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.androidproject.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.InputStream;
 
